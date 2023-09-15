@@ -18,9 +18,9 @@ public class User {
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
   UUID id;
+  String username;
   String name;
   String lastname;
-  String email;
   @CreationTimestamp
   Date dateCreated;
   @CreationTimestamp
