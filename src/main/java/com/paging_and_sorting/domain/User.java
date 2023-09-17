@@ -21,6 +21,7 @@ public class User {
   String username;
   String name;
   String lastname;
+  String password;
   @CreationTimestamp
   Date dateCreated;
   @CreationTimestamp
