@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Objects;
 
@@ -19,9 +20,9 @@ public class UserController {
   private UserService userService;
 
   @RequestMapping(value = "/users", method = RequestMethod.GET)
-  public ResponseEntity<Page<User>> getPageUser(Integer page,
-                                                Integer size,
-                                                String sortBy) {
+  public ResponseEntity<Page<User>> getPageUser(@RequestParam Integer page,
+                                                @RequestParam Integer size,
+                                                @RequestParam String sortBy) {
     Page<User> userPage = userService.geAllUsersPaginated(page, size, sortBy);
     return !Objects.isNull(userPage) ? new ResponseEntity<>(userPage, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
   }
