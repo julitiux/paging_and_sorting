@@ -3,6 +3,8 @@ package com.paging_and_sorting.service.impl;
 import com.paging_and_sorting.domain.User;
 import com.paging_and_sorting.repository.UserRepository;
 import com.paging_and_sorting.service.UserService;
+import com.paging_and_sorting.webApi.domain.UserDTO;
+import com.paging_and_sorting.webApi.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,9 +18,10 @@ public class UserServiceImpl implements UserService {
   private UserRepository userRepository;
 
   @Override
-  public Page<User> geAllUsersPaginated(Integer page, Integer size, String sortBy) {
+  public Page<UserDTO> geAllUsersPaginated(Integer page, Integer size, String sortBy) {
     PageRequest pageRequest = PageRequest.of(page, size, Sort.by(sortBy));
-    return userRepository.findAll(pageRequest);
+    Page<User> userPage = userRepository.findAll(pageRequest);
+    return userPage.map(UserMapper::of);
   }
 
 }
